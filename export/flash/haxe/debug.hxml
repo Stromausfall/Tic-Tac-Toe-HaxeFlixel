@@ -10,6 +10,8 @@
 --macro keep('IntIterator')
 -cp C:/dev/haxe/haxe/lib/hscript/2,2,0
 -D hscript=2.2.0
+-cp C:/dev/haxe/haxe/lib/openfl-utils/git/source
+-D openfl-utils=0.1.0
 -cp source
 -cp C:/dev/haxe/haxe/lib/openfl/8,3,0/src/externs/core/flash
 -cp C:/dev/haxe/haxe/lib/openfl/8,3,0/src/externs/core/openfl
@@ -18,6 +20,7 @@
 -D flash-use-stage
 -D no-compilation
 -D openfl-flash
+-D haxetrace
 -D fdb
 -D web
 --macro flixel.system.macros.FlxDefines.run()
