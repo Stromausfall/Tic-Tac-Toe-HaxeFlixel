@@ -1,4 +1,4 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel.model;
 
 class Coordinate {
     public var x:Int;

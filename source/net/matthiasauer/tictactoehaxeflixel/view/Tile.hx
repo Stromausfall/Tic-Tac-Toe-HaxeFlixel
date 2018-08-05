@@ -1,4 +1,4 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel.view;
 
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
@@ -48,6 +48,7 @@ class Tile extends FlxGroup {
 
         this.add(this.sprite);
 
+        // install the mouse click listener
         FlxMouseEventManager.add(this.sprite);
         FlxMouseEventManager.setMouseClickCallback(this.sprite, this.mouseClicked);
     }

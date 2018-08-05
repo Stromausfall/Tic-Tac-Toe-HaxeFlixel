@@ -20,7 +20,6 @@
 -D flash-use-stage
 -D no-compilation
 -D openfl-flash
--D haxetrace
 -D fdb
 -D web
 --macro flixel.system.macros.FlxDefines.run()

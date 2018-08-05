@@ -1,8 +1,10 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel;
 
 import haxe.ds.HashMap;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
+import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
+import net.matthiasauer.tictactoehaxeflixel.view.Tile;
 
 class TileBoard extends FlxGroup {
     public var clickedTile(default, null):Coordinate = null;
@@ -29,7 +31,7 @@ class TileBoard extends FlxGroup {
                 var coordinate:Coordinate = new Coordinate(x, y);
 				var tileOffsetX = IMAGE_SIZE_X * x;
 				var tileOffsetY = IMAGE_SIZE_Y * y;
-
+/*
 				var tile = new Tile(
 					tileStartX + tileOffsetX,
 					tileStartY + tileOffsetY,
@@ -40,6 +42,7 @@ class TileBoard extends FlxGroup {
 				this.add(tile);
 
 				this.tiles.set(coordinate, tile);
+				*/
 			}
 		}
 	}

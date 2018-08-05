@@ -1,4 +1,4 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel;
 
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;

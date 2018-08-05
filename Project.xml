@@ -2,7 +2,8 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Tic-Tac-Toe-HaxeFlixel" file="Tic-Tac-Toe-HaxeFlixel" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Tic-Tac-Toe-HaxeFlixel" file="Tic-Tac-Toe-HaxeFlixel" main="Main" version="0.0.1" unless="testing"/>
+	<app title="Tic-Tac-Toe-HaxeFlixel" file="Tic-Tac-Toe-HaxeFlixel" main="TestMain" version="0.0.1" if="testing"/>
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -25,12 +26,16 @@
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
+	<!-- run headless -->
+	<window hidden="true" if="testing" />
+
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
+	<classpath name="test" if="testing" />
 	<assets path="assets" />
- <haxedef name="haxetrace" />
+
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />

@@ -15,5 +15,11 @@
 			"args": ["run", "lime", "build", "flash", "-debug", "-Dfdb"],
 			"problemMatcher": ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"]
 		}
+		{
+			"label": "run: test",
+			"command": "haxelib",
+			"args": ["run", "lime", "test", "neko", "-Dtesting"],
+			"problemMatcher": ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"]
+		}
 	]
 }

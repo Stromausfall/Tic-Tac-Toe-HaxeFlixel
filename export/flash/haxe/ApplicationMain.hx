@@ -24,8 +24,8 @@ import haxe.macro.Expr;
 		
 		var config = {
 			
-			build: "1",
-			company: "HaxeFlixel",
+			build: "2",
+			company: "",
 			file: "Tic-Tac-Toe-HaxeFlixel",
 			fps: 60,
 			name: "Tic-Tac-Toe-HaxeFlixel",

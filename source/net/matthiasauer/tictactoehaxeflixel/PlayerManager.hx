@@ -1,4 +1,4 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel;
 
 class PlayerManager {
     private var players:Array<Player>;

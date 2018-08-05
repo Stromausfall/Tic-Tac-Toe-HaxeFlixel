@@ -1,12 +1,15 @@
-package;
+package net.matthiasauer.tictactoehaxeflixel;
+
+import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
+import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
 
 class GameConditionMonitor {
-    private var tileBoard:TileBoard;
+    private var tileBoardModel:TileBoardModel;
     private var gameStatusDisplay:GameStatusDisplay;
     private var winner:TileState = null;
 
-    public function new(tileBoard:TileBoard, gameStatusDisplay:GameStatusDisplay) {
-        this.tileBoard = tileBoard;
+    public function new(tileBoardModel:TileBoardModel, gameStatusDisplay:GameStatusDisplay) {
+        this.tileBoardModel = tileBoardModel;
         this.gameStatusDisplay = gameStatusDisplay;
     }
 
@@ -15,11 +18,11 @@ class GameConditionMonitor {
     }
 
     private function isDraw() {
-        for (x in 0...this.tileBoard.TILE_COUNT_X) {
-            for (y in 0...this.tileBoard.TILE_COUNT_Y) {
+        for (x in 0...this.tileBoardModel.getTileBoardSizeX()) {
+            for (y in 0...this.tileBoardModel.getTileBoardSizeY()) {
                 var coordinate:Coordinate = new Coordinate(x, y);
 
-                if (this.tileBoard.getTileState(coordinate) == TileState.None) {
+                if (this.tileBoardModel.getTileState(coordinate) == TileState.None) {
                     // there is at least ONE free tile so there can be no DRAW
                     return false;
                 }
@@ -42,7 +45,7 @@ class GameConditionMonitor {
 
     private function allPointsOwnedBy(points:Array<Coordinate>, player:TileState) {
         for (point in points) {
-            var pointTileState:TileState = this.tileBoard.getTileState(point);
+            var pointTileState:TileState = this.tileBoardModel.getTileState(point);
 
             if (pointTileState != player) {
                 // we found at least on point which is not owned by the player
