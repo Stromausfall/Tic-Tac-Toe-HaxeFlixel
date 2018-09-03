@@ -1,7 +1,8 @@
-package net.matthiasauer.tictactoehaxeflixel;
+package net.matthiasauer.tictactoehaxeflixel.controller.player;
 
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
 import net.matthiasauer.tictactoehaxeflixel.viewController.TileClickedMessage;
 import net.matthiasauer.utils.messageboard.MessageBoard;
 
@@ -17,18 +18,13 @@ class HumanPlayer implements Player {
     }
 
     public function startTurn() : Void {
-trace("human start :)");
     }
 
-    public function update() : PlayerState {
-        
-        var messages:List<Dynamic> = this.messageBoard.collectFor(TileClickedMessage.TOPIC);
+    public function update() : PlayerState {        
+        var messages:List<TileClickedMessage> = this.messageBoard.collectFor(TileClickedMessage.TOPIC, TileClickedMessage);
 
         for (message in messages) {
-            var actualMessage = cast(message, TileClickedMessage);
-
-            //var clickedTileCoordinate:Coordinate = this.tileBoard.clickedTile;
-            var clickedTileCoordinate:Coordinate = actualMessage.coordinate;
+            var clickedTileCoordinate:Coordinate = message.coordinate;
 
             if (clickedTileCoordinate != null) {
                 var currentTileState:TileState = this.tileBoardModel.getTileState(clickedTileCoordinate);

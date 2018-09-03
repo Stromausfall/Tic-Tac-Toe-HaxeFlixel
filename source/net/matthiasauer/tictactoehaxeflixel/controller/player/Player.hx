@@ -1,4 +1,4 @@
-package net.matthiasauer.tictactoehaxeflixel;
+package net.matthiasauer.tictactoehaxeflixel.controller.player;
 
 interface Player {
     public function startTurn() : Void;

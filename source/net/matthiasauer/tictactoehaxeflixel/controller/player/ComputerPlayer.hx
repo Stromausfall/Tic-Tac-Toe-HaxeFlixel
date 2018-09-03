@@ -1,7 +1,8 @@
-package net.matthiasauer.tictactoehaxeflixel;
+package net.matthiasauer.tictactoehaxeflixel.controller.player;
 
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
 
 class ComputerPlayer implements Player {
     private var tileBoardModel:TileBoardModel;

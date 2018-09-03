@@ -3,6 +3,7 @@ package net.matthiasauer.tictactoehaxeflixel.view;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.input.mouse.FlxMouseEventManager;
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
 
 class Tile extends FlxGroup {
     public var state(default, null):TileState;

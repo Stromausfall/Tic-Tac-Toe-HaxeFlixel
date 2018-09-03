@@ -15,10 +15,17 @@ import net.matthiasauer.tictactoehaxeflixel.viewController.TileBoardViewControll
 import net.matthiasauer.utils.messageboard.MessageBoard;
 import net.matthiasauer.utils.messageboard.MessageBoardImpl;
 
+import net.matthiasauer.tictactoehaxeflixel.controller.GameController;
+
+import net.matthiasauer.tictactoehaxeflixel.controller.player.Player;
+import net.matthiasauer.tictactoehaxeflixel.controller.player.ComputerPlayer;
+import net.matthiasauer.tictactoehaxeflixel.controller.player.HumanPlayer;
+
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
+
 class PlayState extends FlxState
 {
 	private var gameController:GameController;
-	private var tileBoard:TileBoard;
 	private var messageBoard:MessageBoard;
 
 	private var tileBoardViewController:TileBoardViewController;
@@ -30,7 +37,6 @@ class PlayState extends FlxState
 		FlxG.log.redirectTraces = true;
 		this.bgColor = FlxColor.WHITE;
 
-		//this.tileBoard = new TileBoard();
 		this.messageBoard = new MessageBoardImpl();
 		var tileBoardModel:TileBoardModel = new TileBoardModelImpl(messageBoard);
 		var tileBoardView:TileBoardView = new TileBoardViewImpl();
@@ -43,21 +49,9 @@ class PlayState extends FlxState
 		this.gameController = new GameController([humanPlayer, computerPlayer], currentPlayerDisplay, gameStatusDisplay, tileBoardModel);
 
 		this.add(currentPlayerDisplay);
-		//this.add(this.tileBoard);
-		//this.add(tileBoardView);
 		tileBoardView.addTo(this);
 		this.add(gameStatusDisplay);
-
-		method(PlayState);
-		method(AssetPaths);
-		method(TileBoard);
 	}
-
-	//private function addView()
-
-	@:generic static function method<T>(t:Class<T>) {
-		trace(t);
-	 }
 
 	override public function update(elapsed:Float):Void
 	{

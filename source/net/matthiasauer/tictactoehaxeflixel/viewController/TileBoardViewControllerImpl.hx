@@ -1,7 +1,7 @@
 package net.matthiasauer.tictactoehaxeflixel.viewController;
 
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
-import net.matthiasauer.tictactoehaxeflixel.TileState;
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
 import net.matthiasauer.tictactoehaxeflixel.view.TileBoardView;
 import net.matthiasauer.tictactoehaxeflixel.view.Tile;
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
@@ -31,12 +31,11 @@ class TileBoardViewControllerImpl implements TileBoardViewController {
     }
 
     public function updateGUI() : Void {
-        var messages:List<Dynamic> = this.messageBoard.collectFor(TileBoardTileChangeMessage.TOPIC);
+        var messages:List<TileBoardTileChangeMessage> = this.messageBoard.collectFor(TileBoardTileChangeMessage.TOPIC, TileBoardTileChangeMessage);
 
         for (message in messages) {
-            var actualMessage:TileBoardTileChangeMessage = cast(message, TileBoardTileChangeMessage);
-            var tile:Tile = this.getTile(actualMessage.coordinate);
-            var newTileState:TileState = this.tileBoardModel.getTileState(actualMessage.coordinate);
+            var tile:Tile = this.getTile(message.coordinate);
+            var newTileState:TileState = this.tileBoardModel.getTileState(message.coordinate);
 
             // change the tile state
             tile.changeState(newTileState);

@@ -1,7 +1,8 @@
-package net.matthiasauer.tictactoehaxeflixel;
+package net.matthiasauer.tictactoehaxeflixel.controller;
 
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
+import net.matthiasauer.tictactoehaxeflixel.model.TileState;
 
 class GameConditionMonitor {
     private var tileBoardModel:TileBoardModel;
