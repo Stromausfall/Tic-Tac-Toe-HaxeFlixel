@@ -1,5 +1,7 @@
 package net.matthiasauer.tictactoehaxeflixel.controller.player;
 
+import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplay;
+
 class PlayerManager {
     private var players:Array<Player>;
     private var currentPlayer:Player;

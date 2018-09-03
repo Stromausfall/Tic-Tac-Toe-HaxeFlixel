@@ -3,14 +3,13 @@ package net.matthiasauer.tictactoehaxeflixel;
 import flixel.FlxState;
 import flixel.FlxG;
 import flixel.util.FlxColor;
-import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
-import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModelImpl;
 
 import net.matthiasauer.tictactoehaxeflixel.view.TileBoardView;
-import net.matthiasauer.tictactoehaxeflixel.view.TileBoardViewImpl;
+
+import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplay;
+import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplay;
 
 import net.matthiasauer.tictactoehaxeflixel.viewController.TileBoardViewController;
-import net.matthiasauer.tictactoehaxeflixel.viewController.TileBoardViewControllerImpl;
 
 import net.matthiasauer.utils.messageboard.MessageBoard;
 import net.matthiasauer.utils.messageboard.MessageBoardImpl;
@@ -21,7 +20,15 @@ import net.matthiasauer.tictactoehaxeflixel.controller.player.Player;
 import net.matthiasauer.tictactoehaxeflixel.controller.player.ComputerPlayer;
 import net.matthiasauer.tictactoehaxeflixel.controller.player.HumanPlayer;
 
+import net.matthiasauer.utils.di.ApplicationContext;
+import net.matthiasauer.utils.di.ApplicationContextImpl;
+
 import net.matthiasauer.tictactoehaxeflixel.model.TileState;
+
+import net.matthiasauer.tictactoehaxeflixel.controller.ControllerDependencyDefinition;
+import net.matthiasauer.tictactoehaxeflixel.model.ModelDependencyDefinition;
+import net.matthiasauer.tictactoehaxeflixel.view.ViewDependencyDefinition;
+import net.matthiasauer.tictactoehaxeflixel.viewController.ViewControllerDependencyDefinition;
 
 class PlayState extends FlxState
 {
@@ -37,19 +44,31 @@ class PlayState extends FlxState
 		FlxG.log.redirectTraces = true;
 		this.bgColor = FlxColor.WHITE;
 
-		this.messageBoard = new MessageBoardImpl();
-		var tileBoardModel:TileBoardModel = new TileBoardModelImpl(messageBoard);
-		var tileBoardView:TileBoardView = new TileBoardViewImpl();
-		this.tileBoardViewController = new TileBoardViewControllerImpl(tileBoardView, tileBoardModel, messageBoard);
+
+		var applicationContext:ApplicationContext = new ApplicationContextImpl();
+		applicationContext.addSingleton([MessageBoard], MessageBoardImpl, []);
+
+		new ControllerDependencyDefinition().addTo(applicationContext);
+		new ModelDependencyDefinition().addTo(applicationContext);
+		new ViewDependencyDefinition().addTo(applicationContext);
+		new ViewControllerDependencyDefinition().addTo(applicationContext);
+		
+
+		this.messageBoard = applicationContext.getImplementation(MessageBoard);
+		var humanPlayer:Player = applicationContext.getImplementation(HumanPlayer).initialize(TileState.Circle);
+		var computerPlayer:Player = applicationContext.getImplementation(ComputerPlayer).initialize(TileState.Cross);
+
+
+		this.tileBoardViewController = applicationContext.getImplementation(TileBoardViewController);
 
 		var gameStatusDisplay:GameStatusDisplay = new GameStatusDisplay();
 		var currentPlayerDisplay:CurrentPlayerDisplay = new CurrentPlayerDisplay();
-		var humanPlayer:Player = new HumanPlayer(TileState.Circle, tileBoardModel, messageBoard);
-		var computerPlayer:Player = new ComputerPlayer(TileState.Cross, tileBoardModel);
-		this.gameController = new GameController([humanPlayer, computerPlayer], currentPlayerDisplay, gameStatusDisplay, tileBoardModel);
+		this.gameController = applicationContext.getImplementation(GameController);
+		this.gameController.initialize([humanPlayer, computerPlayer], currentPlayerDisplay, gameStatusDisplay);
 
 		this.add(currentPlayerDisplay);
-		tileBoardView.addTo(this);
+
+		applicationContext.getImplementation(TileBoardView).addTo(this);
 		this.add(gameStatusDisplay);
 	}
 

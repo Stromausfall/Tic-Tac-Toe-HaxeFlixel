@@ -3,6 +3,7 @@ package net.matthiasauer.tictactoehaxeflixel.controller;
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
 import net.matthiasauer.tictactoehaxeflixel.model.TileState;
+import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplay;
 
 class GameConditionMonitor {
     private var tileBoardModel:TileBoardModel;
