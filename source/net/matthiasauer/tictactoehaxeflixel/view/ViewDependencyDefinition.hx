@@ -5,8 +5,10 @@ import net.matthiasauer.utils.di.DependencyDefinition;
 
 class ViewDependencyDefinition implements DependencyDefinition {
     public function new() {}
-    
+
     public function addTo(applicationContext:ApplicationContext) : Void {
         applicationContext.addSingleton([TileBoardView], TileBoardViewImpl, []);
+        applicationContext.addSingleton([CurrentPlayerDisplayView], CurrentPlayerDisplayViewImpl, []);
+        applicationContext.addSingleton([GameStatusDisplayView], GameStatusDisplayViewImpl, []);
     }
 }

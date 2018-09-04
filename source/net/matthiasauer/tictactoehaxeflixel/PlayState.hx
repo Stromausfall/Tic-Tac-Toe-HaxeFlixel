@@ -5,9 +5,8 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 
 import net.matthiasauer.tictactoehaxeflixel.view.TileBoardView;
-
-import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplay;
-import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplay;
+import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplayView;
+import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplayView;
 
 import net.matthiasauer.tictactoehaxeflixel.viewController.TileBoardViewController;
 
@@ -32,49 +31,60 @@ import net.matthiasauer.tictactoehaxeflixel.viewController.ViewControllerDepende
 
 class PlayState extends FlxState
 {
-	private var gameController:GameController;
-	private var messageBoard:MessageBoard;
+	private var applicationContext:ApplicationContext;
 
 	private var tileBoardViewController:TileBoardViewController;
+	private var gameController:GameController;
+	private var messageBoard:MessageBoard;
 
 	override public function create():Void
 	{
 		super.create();
 		
-		FlxG.log.redirectTraces = true;
-		this.bgColor = FlxColor.WHITE;
+		this.applicationContext = new ApplicationContextImpl();
 
-
-		var applicationContext:ApplicationContext = new ApplicationContextImpl();
-		applicationContext.addSingleton([MessageBoard], MessageBoardImpl, []);
-
-		new ControllerDependencyDefinition().addTo(applicationContext);
-		new ModelDependencyDefinition().addTo(applicationContext);
-		new ViewDependencyDefinition().addTo(applicationContext);
-		new ViewControllerDependencyDefinition().addTo(applicationContext);
+		this.addDependencyDefinitions();
+		this.getDependenciesForUpdate();
 		
+		this.initializeGameController();
+		this.initializeView();
+	}
 
-		this.messageBoard = applicationContext.getImplementation(MessageBoard);
+	private function addDependencyDefinitions() {
+		// add the messageBoard
+		this.applicationContext.addSingleton([MessageBoard], MessageBoardImpl, []);
+
+		// add the dependencies of the sub packages
+		new ControllerDependencyDefinition().addTo(this.applicationContext);
+		new ModelDependencyDefinition().addTo(this.applicationContext);
+		new ViewDependencyDefinition().addTo(this.applicationContext);
+		new ViewControllerDependencyDefinition().addTo(this.applicationContext);
+	}
+
+	private function getDependenciesForUpdate() : Void {
+		this.tileBoardViewController = this.applicationContext.getImplementation(TileBoardViewController);
+		this.gameController = this.applicationContext.getImplementation(GameController);
+		this.messageBoard = this.applicationContext.getImplementation(MessageBoard);
+	}
+
+	private function initializeGameController() : Void {
 		var humanPlayer:Player = applicationContext.getImplementation(HumanPlayer).initialize(TileState.Circle);
 		var computerPlayer:Player = applicationContext.getImplementation(ComputerPlayer).initialize(TileState.Cross);
 
+		this.gameController.initialize([humanPlayer, computerPlayer]);
+	}
 
-		this.tileBoardViewController = applicationContext.getImplementation(TileBoardViewController);
-
-		var gameStatusDisplay:GameStatusDisplay = new GameStatusDisplay();
-		var currentPlayerDisplay:CurrentPlayerDisplay = new CurrentPlayerDisplay();
-		this.gameController = applicationContext.getImplementation(GameController);
-		this.gameController.initialize([humanPlayer, computerPlayer], currentPlayerDisplay, gameStatusDisplay);
-
-		this.add(currentPlayerDisplay);
+	private function initializeView() : Void {
+		FlxG.log.redirectTraces = true;
+		this.bgColor = FlxColor.WHITE;
 
 		applicationContext.getImplementation(TileBoardView).addTo(this);
-		this.add(gameStatusDisplay);
+		applicationContext.getImplementation(GameStatusDisplayView).addTo(this);
+		applicationContext.getImplementation(CurrentPlayerDisplayView).addTo(this);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-
 		// input from GUI
 		this.tileBoardViewController.updateInput();
 

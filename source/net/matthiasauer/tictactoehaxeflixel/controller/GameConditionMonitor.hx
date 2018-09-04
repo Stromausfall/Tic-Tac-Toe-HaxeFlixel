@@ -3,14 +3,14 @@ package net.matthiasauer.tictactoehaxeflixel.controller;
 import net.matthiasauer.tictactoehaxeflixel.model.Coordinate;
 import net.matthiasauer.tictactoehaxeflixel.model.TileBoardModel;
 import net.matthiasauer.tictactoehaxeflixel.model.TileState;
-import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplay;
+import net.matthiasauer.tictactoehaxeflixel.view.GameStatusDisplayView;
 
 class GameConditionMonitor {
     private var tileBoardModel:TileBoardModel;
-    private var gameStatusDisplay:GameStatusDisplay;
+    private var gameStatusDisplay:GameStatusDisplayView;
     private var winner:TileState = null;
 
-    public function new(tileBoardModel:TileBoardModel, gameStatusDisplay:GameStatusDisplay) {
+    public function new(tileBoardModel:TileBoardModel, gameStatusDisplay:GameStatusDisplayView) {
         this.tileBoardModel = tileBoardModel;
         this.gameStatusDisplay = gameStatusDisplay;
     }

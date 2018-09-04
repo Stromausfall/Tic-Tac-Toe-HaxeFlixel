@@ -1,13 +1,13 @@
 package net.matthiasauer.tictactoehaxeflixel.controller.player;
 
-import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplay;
+import net.matthiasauer.tictactoehaxeflixel.view.CurrentPlayerDisplayView;
 
 class PlayerManager {
     private var players:Array<Player>;
     private var currentPlayer:Player;
-    private var currentPlayerDisplay:CurrentPlayerDisplay;
+    private var currentPlayerDisplay:CurrentPlayerDisplayView;
 
-    public function new(players:Array<Player>, currentPlayerDisplay:CurrentPlayerDisplay) {
+    public function new(players:Array<Player>, currentPlayerDisplay:CurrentPlayerDisplayView) {
         this.players = players;
         this.currentPlayer = null;
         this.currentPlayerDisplay = currentPlayerDisplay;
